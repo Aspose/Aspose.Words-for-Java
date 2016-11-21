@@ -1,11 +1,3 @@
-/* 
- * Copyright 2001-2014 Aspose Pty Ltd. All Rights Reserved.
- *
- * This file is part of Aspose.Words. The source code in this file
- * is only intended as a supplement to the documentation, and is provided
- * "as is", without warranty of any kind, either expressed or implied.
- */
- 
 package com.aspose.words.examples.loading_saving;
 
 import com.aspose.words.*;
@@ -169,7 +161,7 @@ class PageNumberFinder {
             if (!mReversePageLookup.containsKey(page))
                 continue;
 
-            for (Node node : (Iterable<Node>) (ArrayList) mReversePageLookup.get(page)) {
+            for (Node node : (Iterable<Node>) mReversePageLookup.get(page)) {
                 if (node.getParentNode() != null && ((nodeType == NodeType.ANY) || (nodeType == node.getNodeType())) && !pageNodes.contains(node))
                     pageNodes.add(node);
             }
@@ -330,7 +322,7 @@ class SectionSplitter extends DocumentVisitor {
         if (previousSection != null) {
             if (!section.getPageSetup().getRestartPageNumbering()) {
                 section.getPageSetup().setRestartPageNumbering(true);
-                section.getPageSetup().setPageStartingNumber(previousSection.getPageSetup().getPageStartingNumber() + (int) mPageNumberFinder.PageSpan(previousSection));
+                section.getPageSetup().setPageStartingNumber(previousSection.getPageSetup().getPageStartingNumber() + mPageNumberFinder.PageSpan(previousSection));
             }
 
             for (HeaderFooter previousHeaderFooter : previousSection.getHeadersFooters()) {

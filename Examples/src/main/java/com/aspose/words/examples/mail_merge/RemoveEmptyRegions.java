@@ -1,10 +1,3 @@
-/* 
- * Copyright 2001-2014 Aspose Pty Ltd. All Rights Reserved.
- *
- * This file is part of Aspose.Words. The source code in this file
- * is only intended as a supplement to the documentation, and is provided
- * "as is", without warranty of any kind, either expressed or implied.
- */
 package com.aspose.words.examples.mail_merge;
 
 import com.aspose.words.Document;
@@ -34,7 +27,7 @@ public class RemoveEmptyRegions
         doc.getMailMerge().executeWithRegions(data);
 
         // Save the output document to disk.
-        doc.save(dataDir + "TestFile.RemoveEmptyRegions Out.doc");
+        doc.save(dataDir + "Output.doc");
 
         assert doc.getMailMerge().getFieldNames().length == 0: "Error: There are still unused regions remaining in the document";
 

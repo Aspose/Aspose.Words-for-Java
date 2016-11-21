@@ -1,11 +1,10 @@
-/* 
+/*
  * Copyright 2001-2014 Aspose Pty Ltd. All Rights Reserved.
  *
  * This file is part of Aspose.Words. The source code in this file
  * is only intended as a supplement to the documentation, and is provided
  * "as is", without warranty of any kind, either expressed or implied.
  */
- 
 package com.aspose.words.examples.rendering_printing;
 
 import javax.print.attribute.PrintRequestAttributeSet;
@@ -61,17 +60,18 @@ public class PrintPreviewDialog extends JFrame {
      * Creates a new instance of PrintPreviewDialog for the given printable object. Since this object
      * does not define formatting for each page the preview dialog presents a page setup option
      * where the user can specify custom page settings for the document.
+     *
      * @param printJob The print job for the given document.
-     * @param doc The printable document.
+     * @param doc      The printable document.
      */
-    public PrintPreviewDialog(PrinterJob printJob, Printable doc)
-    {
+    public PrintPreviewDialog(PrinterJob printJob, Printable doc) {
         mPrintableDoc = doc;
         mPrintJob = printJob;
 
         // In Java 1.6 and above we would use the getPageFormat(PrintRequestAttributeSet) property of a
         // class implementing printable to retrieve the currently specified page format. However this
         // property is not available in versions below versions so we need to assume the default page instead.
+        $$$setupUI$$$();
         mPageFormat = mPrintJob.defaultPage();
 
         init();
@@ -80,19 +80,19 @@ public class PrintPreviewDialog extends JFrame {
     /**
      * Creates a new instance of PrintPreviewDialog for the given pageable object. Since this object
      * defines formatting for each page the page setup option on the preview dialog is disabled.
+     *
      * @param doc The pageable document.
      */
-    public PrintPreviewDialog(Pageable doc)
-    {
+    public PrintPreviewDialog(Pageable doc) {
         mPageableDoc = doc;
+        $$$setupUI$$$();
         mTotalPages = doc.getNumberOfPages();
         mDocumentPages = mTotalPages;
 
         init();
     }
 
-    public void setPrinterAttributes(PrintRequestAttributeSet attributes)
-    {
+    public void setPrinterAttributes(PrintRequestAttributeSet attributes) {
         // Store the printer attributes for use with the page dialog.
         mAttributeSet = attributes;
 
@@ -100,8 +100,7 @@ public class PrintPreviewDialog extends JFrame {
         findPageRangeFromAttributes(attributes);
     }
 
-    public void init()
-    {
+    public void init() {
         // Setup the main window
         setContentPane(contentPane);
         pack();
@@ -114,7 +113,7 @@ public class PrintPreviewDialog extends JFrame {
         populateZoomComboBox();
 
         // Pageable print classes already have page formatting applied so disable page setup button.
-        if(mPageableDoc != null)
+        if (mPageableDoc != null)
             pageSetupButton.setEnabled(false);
 
         // Make the page number centered horizontally.
@@ -189,8 +188,7 @@ public class PrintPreviewDialog extends JFrame {
     /**
      * Called to display the print preview dialog.
      */
-    public boolean display()
-    {
+    public boolean display() {
         // Activate the window.
         setVisible(true);
 
@@ -199,7 +197,8 @@ public class PrintPreviewDialog extends JFrame {
 
         // This causes the JFrame to act like modal. We want to use a JFrame in this way and not JDialog so
         // we can have a taskbar icon for this window.
-        while(mIsOpened) {}
+        while (mIsOpened) {
+        }
 
         // Return whether the user pressed print or close.
         return mPrintSelected;
@@ -208,8 +207,7 @@ public class PrintPreviewDialog extends JFrame {
     /**
      * Renders the current page index of the document to image based on the current zoom factor and displays it on a JScrollPane.
      */
-    private int renderImageAndDisplay()
-    {
+    private int renderImageAndDisplay() {
         // Set the progress bar to loading.
         progressBar.setVisible(true);
         progressBar.setIndeterminate(true);
@@ -225,11 +223,10 @@ public class PrintPreviewDialog extends JFrame {
         int result;
 
         // Find the format of the current page from either the current pageable or printable object we are printing with.
-        PageFormat format =  mPageableDoc != null ? mPageableDoc.getPageFormat(mCurrentPage - 1) : mPageFormat;
+        PageFormat format = mPageableDoc != null ? mPageableDoc.getPageFormat(mCurrentPage - 1) : mPageFormat;
 
-        try
-        {
-            img = new BufferedImage((int)(format.getWidth() * zoomModifier), (int)(format.getHeight() * zoomModifier), BufferedImage.TYPE_INT_RGB);
+        try {
+            img = new BufferedImage((int) (format.getWidth() * zoomModifier), (int) (format.getHeight() * zoomModifier), BufferedImage.TYPE_INT_RGB);
             g = img.createGraphics();
 
             // Fill the background white and add a black border.
@@ -247,27 +244,21 @@ public class PrintPreviewDialog extends JFrame {
             imageLabel.setMaximumSize(new Dimension(img.getWidth(), img.getHeight()));
 
             // Call the pageable or printable class to render the specified page onto our image object.
-            if(mPageableDoc != null)
+            if (mPageableDoc != null)
                 result = mPageableDoc.getPrintable(mCurrentPage - 1).print(g, format, mCurrentPage - 1);
             else
                 result = mPrintableDoc.print(g, format, mCurrentPage - 1);
-        }
-
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             // We'll end up here if there is a problem with rendering or we have gone past the valid page range.
             // Display a blank page and return the result so we know we have gone past the last page.
             return Printable.NO_SUCH_PAGE;
-        }
-
-        finally
-        {
+        } finally {
             // Hide the progress bar.
             progressBar.setVisible(false);
         }
 
         // Display the rendered page.
-        imageLabel.setIcon(new ImageIcon( img ));
+        imageLabel.setIcon(new ImageIcon(img));
 
         return result;
     }
@@ -275,35 +266,30 @@ public class PrintPreviewDialog extends JFrame {
     /**
      * Finds the page range selected by the user by the printer attributes.
      */
-    private void findPageRangeFromAttributes(PrintRequestAttributeSet attributes)
-    {
-        if(attributes.containsKey(PageRanges.class))
-        {
-            int[][] pageRanges = ((PageRanges)attributes.get(PageRanges.class)).getMembers();
+    private void findPageRangeFromAttributes(PrintRequestAttributeSet attributes) {
+        if (attributes.containsKey(PageRanges.class)) {
+            int[][] pageRanges = ((PageRanges) attributes.get(PageRanges.class)).getMembers();
 
             int startPage = pageRanges[0][0];
 
             // If we know the number of pages in the document and the user specified value is out of range then use
             // the first page instead. Otherwise the user specified value is used which is checked later on if it's
             // valid or not.
-            if(knowsDocumentPages())
-            {
-              if(startPage > mDocumentPages)
-                mStartPage = 1;
-              else
+            if (knowsDocumentPages()) {
+                if (startPage > mDocumentPages)
+                    mStartPage = 1;
+                else
+                    mStartPage = startPage;
+            } else {
                 mStartPage = startPage;
             }
-            else
-            {
-                mStartPage = startPage;
-            }
-            
+
             mCurrentPage = mStartPage;
 
             // If we know how many pages the document has then we need to make sure the user user specified end page
             // does not go beyond this limit. Otherwise use this value which will be handled later on if it's found
             // to be invalid.
-            if(knowsDocumentPages())
+            if (knowsDocumentPages())
                 mTotalPages = Math.min(mDocumentPages, pageRanges[0][1]);
             else
                 mTotalPages = pageRanges[0][1];
@@ -313,8 +299,7 @@ public class PrintPreviewDialog extends JFrame {
     /**
      * Changes the current page to display.
      */
-    private void setPageToDisplay(int page)
-    {
+    private void setPageToDisplay(int page) {
         mCurrentPage = page;
         updateCurrentPage();
     }
@@ -322,8 +307,7 @@ public class PrintPreviewDialog extends JFrame {
     /**
      * Adds the zoom options to the combobox.
      */
-    private void populateZoomComboBox()
-    {
+    private void populateZoomComboBox() {
         zoomComboBox.addItem("10%");
         zoomComboBox.addItem("25%");
         zoomComboBox.addItem("50%");
@@ -339,9 +323,8 @@ public class PrintPreviewDialog extends JFrame {
     /**
      * Returns the zoom modifier for the given zoom level.
      */
-    private double getCurrentZoomModifier()
-    {
-        String zoomLevel = ((String)zoomComboBox.getSelectedItem()).replace("%", "");
+    private double getCurrentZoomModifier() {
+        String zoomLevel = ((String) zoomComboBox.getSelectedItem()).replace("%", "");
 
         // Percent increase of the original image to make the page displayed at 100%.
         double hundredPercent = 1.5;
@@ -357,19 +340,17 @@ public class PrintPreviewDialog extends JFrame {
      * Depending if a page range was specified by the user we may or may not know the final page number yet. If we don't then
      * it is found later when each page is rendered.
      */
-    private void updateCurrentPage()
-    {
+    private void updateCurrentPage() {
         // If we don't know the total pages in the document then we also won't know the final page count in the document
         // until we try to render outside the valid index. Until then allow the user to move forward no matter the current
         // page index.
-        if(knowsDocumentPages())
-        {
-            if(mCurrentPage > mTotalPages)
+        if (knowsDocumentPages()) {
+            if (mCurrentPage > mTotalPages)
                 return;
         }
 
         // Can't move past the first page.
-        if(mCurrentPage < mStartPage)
+        if (mCurrentPage < mStartPage)
             return;
 
         int result = renderImageAndDisplay();
@@ -377,17 +358,13 @@ public class PrintPreviewDialog extends JFrame {
         // If the rendering of the previous page resulted in "NO_SUCH_PAGE" then
         // we must have found the last page in the document. The appropriate page numbers
         // needs to be updated.
-        if(result == Printable.NO_SUCH_PAGE)
-        {
+        if (result == Printable.NO_SUCH_PAGE) {
             // If this occurs at the very start of the document preview then the intial starting page
             // must be out of bounds. Default to page one instead.
-            if(mCurrentPage == mStartPage)
-            {
+            if (mCurrentPage == mStartPage) {
                 mCurrentPage = 1;
                 mStartPage = 1;
-            }
-            else
-            {
+            } else {
                 mCurrentPage--;
 
                 // If the next page document button was pressed and there's no futher pages to render then
@@ -408,57 +385,45 @@ public class PrintPreviewDialog extends JFrame {
     /**
      * Enables or disables arrow buttons based off the current state of the page index.
      */
-    private void updateArrowButtons()
-    {
-        if(mCurrentPage > mStartPage)
-        {
+    private void updateArrowButtons() {
+        if (mCurrentPage > mStartPage) {
             firstPageButton.setEnabled(true);
             previousPageButton.setEnabled(true);
-        }
-        else
-        {
+        } else {
             firstPageButton.setEnabled(false);
             previousPageButton.setEnabled(false);
         }
 
-        if(knowsDocumentPages())
-        {
-            if(mCurrentPage == mTotalPages)
-            {
+        if (knowsDocumentPages()) {
+            if (mCurrentPage == mTotalPages) {
                 nextPageButton.setEnabled(false);
                 lastPageButton.setEnabled(false);
-            }
-            else
-            {
+            } else {
                 nextPageButton.setEnabled(true);
                 lastPageButton.setEnabled(true);
             }
-        }
-        else
-        {
+        } else {
             // If we don't know how many pages are in the specified document then we cannot skip to the last page.
             lastPageButton.setEnabled(false);
 
-            if(mCurrentPage == mTotalPages)
+            if (mCurrentPage == mTotalPages)
                 nextPageButton.setEnabled(false);
             else
                 nextPageButton.setEnabled(true);
         }
     }
 
-   /**
+    /**
      * Returns true if the last page number of the document is known.
      */
-    private boolean knowsDocumentPages()
-    {
+    private boolean knowsDocumentPages() {
         return mDocumentPages > 0;
     }
 
     /**
      * Called when user presses the cross on the window or the escape key to close the program.
      */
-    private void closeWindow()
-    {
+    private void closeWindow() {
         setVisible(false);
         mIsOpened = false;
         dispose();
@@ -468,13 +433,12 @@ public class PrintPreviewDialog extends JFrame {
      * Called when the user press the Page Setup button. A screen is displayed which allows
      * the user to change the page setting of the document before printing.
      */
-    private void onPageSetup()
-    {
+    private void onPageSetup() {
         // Retrieve the new page format from either the attributes if specified otherwise the previous page formatting.
-        if(mAttributeSet != null)
-           mPageFormat = mPrintJob.pageDialog(mAttributeSet);
+        if (mAttributeSet != null)
+            mPageFormat = mPrintJob.pageDialog(mAttributeSet);
         else
-           mPageFormat = mPrintJob.pageDialog(mPageFormat);
+            mPageFormat = mPrintJob.pageDialog(mPageFormat);
 
         // Print using the new page format.
         mPrintJob.setPrintable(mPrintableDoc, mPageFormat);
@@ -488,8 +452,7 @@ public class PrintPreviewDialog extends JFrame {
      * Called when the user presses the print button. Returns true to specify that printing was accepted
      * and closes the window.
      */
-    private void onPrint()
-    {
+    private void onPrint() {
         mPrintSelected = true;
         closeWindow();
     }
@@ -497,10 +460,8 @@ public class PrintPreviewDialog extends JFrame {
     /**
      * Re-renders the document page if the zoom level has been changed.
      */
-    private void onZoomChanged()
-    {
-        if(mPreviousZoomIndex != zoomComboBox.getSelectedIndex())
-        {
+    private void onZoomChanged() {
+        if (mPreviousZoomIndex != zoomComboBox.getSelectedIndex()) {
             mPreviousZoomIndex = zoomComboBox.getSelectedIndex();
             renderImageAndDisplay();
         }
@@ -509,32 +470,28 @@ public class PrintPreviewDialog extends JFrame {
     /**
      * Called when the first page button is selected. Displays the first page.
      */
-    private void onFirstPageSelected()
-    {
+    private void onFirstPageSelected() {
         setPageToDisplay(mStartPage);
     }
 
     /**
      * Called when the next page button is selected. Displays the next page.
      */
-    private void onNextPageSelected()
-    {
+    private void onNextPageSelected() {
         setPageToDisplay(mCurrentPage + 1);
     }
 
     /**
      * Called when the last page button is selected. Displays the last page.
      */
-    private void onLastPageSelected()
-    {
+    private void onLastPageSelected() {
         setPageToDisplay(mTotalPages);
     }
 
     /**
      * Called when the previous page button is selected. Displays the previous page.
      */
-    private void onPreviousPageSelected()
-    {
+    private void onPreviousPageSelected() {
         setPageToDisplay(mCurrentPage - 1);
     }
 
@@ -550,10 +507,90 @@ public class PrintPreviewDialog extends JFrame {
     }
 
     /**
+     * Method generated by IntelliJ IDEA GUI Designer
+     * >>> IMPORTANT!! <<<
+     * DO NOT edit this method OR call it in your code!
+     *
+     * @noinspection ALL
+     */
+    private void $$$setupUI$$$() {
+        createUIComponents();
+        contentPane = new JPanel();
+        contentPane.setLayout(new BorderLayout(0, 0));
+        contentPane.setMaximumSize(new Dimension(1000, 700));
+        contentPane.setMinimumSize(new Dimension(1000, 700));
+        contentPane.setPreferredSize(new Dimension(1000, 700));
+        contentPane.setRequestFocusEnabled(true);
+        final JToolBar toolBar1 = new JToolBar();
+        contentPane.add(toolBar1, BorderLayout.NORTH);
+        printButton = new JButton();
+        printButton.setMargin(new Insets(2, 14, 2, 14));
+        printButton.setText("Print");
+        toolBar1.add(printButton);
+        final JToolBar.Separator toolBar$Separator1 = new JToolBar.Separator();
+        toolBar1.add(toolBar$Separator1);
+        pageSetupButton = new JButton();
+        pageSetupButton.setText("Page Setup");
+        toolBar1.add(pageSetupButton);
+        final JToolBar.Separator toolBar$Separator2 = new JToolBar.Separator();
+        toolBar1.add(toolBar$Separator2);
+        zoomComboBox = new JComboBox();
+        zoomComboBox.setBackground(new Color(-1));
+        zoomComboBox.setMaximumSize(new Dimension(130, 30));
+        zoomComboBox.setMinimumSize(new Dimension(130, 23));
+        zoomComboBox.setRequestFocusEnabled(false);
+        toolBar1.add(zoomComboBox);
+        final JToolBar.Separator toolBar$Separator3 = new JToolBar.Separator();
+        toolBar1.add(toolBar$Separator3);
+        final JPanel panel1 = new JPanel();
+        panel1.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 5, new Insets(0, 0, 0, 0), -1, -1));
+        panel1.setMaximumSize(new Dimension(175, 2147483647));
+        panel1.setMinimumSize(new Dimension(175, 24));
+        panel1.setOpaque(false);
+        toolBar1.add(panel1);
+        panel1.add(firstPageButton, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        panel1.add(previousPageButton, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        panel1.add(nextPageButton, new com.intellij.uiDesigner.core.GridConstraints(0, 3, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        panel1.add(lastPageButton, new com.intellij.uiDesigner.core.GridConstraints(0, 4, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        pageNumberTextBox = new JTextPane();
+        pageNumberTextBox.setEditable(false);
+        panel1.add(pageNumberTextBox, new com.intellij.uiDesigner.core.GridConstraints(0, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, new Dimension(40, 20), new Dimension(40, 20), new Dimension(40, 20), 0, false));
+        final JToolBar.Separator toolBar$Separator4 = new JToolBar.Separator();
+        toolBar1.add(toolBar$Separator4);
+        closeButton = new JButton();
+        closeButton.setText("Close");
+        toolBar1.add(closeButton);
+        documentViewer = new JScrollPane();
+        documentViewer.setVerticalScrollBarPolicy(20);
+        contentPane.add(documentViewer, BorderLayout.CENTER);
+        imageLabel = new JLabel();
+        imageLabel.setHorizontalAlignment(0);
+        imageLabel.setHorizontalTextPosition(0);
+        imageLabel.setMaximumSize(new Dimension(500, 500));
+        imageLabel.setMinimumSize(new Dimension(500, 500));
+        imageLabel.setPreferredSize(new Dimension(500, 500));
+        imageLabel.setRequestFocusEnabled(true);
+        imageLabel.setText("");
+        documentViewer.setViewportView(imageLabel);
+        final JPanel panel2 = new JPanel();
+        panel2.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        contentPane.add(panel2, BorderLayout.SOUTH);
+        progressBar = new JProgressBar();
+        progressBar.setPreferredSize(new Dimension(60, 14));
+        panel2.add(progressBar, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, new Dimension(300, 10), null, 0, false));
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    public JComponent $$$getRootComponent$$$() {
+        return contentPane;
+    }
+
+    /**
      * A simple extension of the BasicArrowButton which displays two arrows instead of one.
      */
-    public class DoubleArrowButton extends BasicArrowButton
-    {
+    public class DoubleArrowButton extends BasicArrowButton {
         public DoubleArrowButton(int type) {
             super(type);
             mArrowType = type;
@@ -569,3 +606,4 @@ public class PrintPreviewDialog extends JFrame {
         private int mArrowType;
     }
 }
+

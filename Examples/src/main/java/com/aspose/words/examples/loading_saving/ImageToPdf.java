@@ -1,10 +1,3 @@
-/* 
- * Copyright 2001-2014 Aspose Pty Ltd. All Rights Reserved.
- *
- * This file is part of Aspose.Words. The source code in this file
- * is only intended as a supplement to the documentation, and is provided
- * "as is", without warranty of any kind, either expressed or implied.
- */
 package com.aspose.words.examples.loading_saving;
 
 import com.aspose.words.*;
@@ -19,16 +12,14 @@ import java.io.File;
 
 public class ImageToPdf
 {
-    public static void main(String[] args) throws Exception
-    {
+    public static void main(String[] args) throws Exception {
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(ImageToPdf.class);
 
-        convertImageToPdf(dataDir + "Test.jpg", dataDir + "TestJpg Out.pdf");
-        convertImageToPdf(dataDir + "Test.png", dataDir + "TestPng Out.pdf");
-        convertImageToPdf(dataDir + "Test.bmp", dataDir + "TestBmp Out.pdf");
-        convertImageToPdf(dataDir + "Test.gif", dataDir + "TestGif Out.pdf");
-
+        convertImageToPdf(dataDir + "Test.jpg", dataDir + "TestJpg_out_.pdf");
+        convertImageToPdf(dataDir + "Test.png", dataDir + "TestPng_out_.pdf");
+        convertImageToPdf(dataDir + "Test.bmp", dataDir + "TestBmp_out_.pdf");
+        convertImageToPdf(dataDir + "Test.gif", dataDir + "TestGif_out_.pdf");
         System.out.println("Images converted to PDF successfully.");
     }
 
@@ -97,4 +88,3 @@ public class ImageToPdf
         doc.save(outputFileName);
     }
 }
-//ExEnd
