@@ -1,19 +1,18 @@
 package com.aspose.words.examples.programming_documents.bookmarks;
 
-import com.aspose.words.Bookmark;
-import com.aspose.words.*;
-import com.aspose.words.Row;
-import  com.aspose.words.SaveFormat.*;
+import com.aspose.words.Document;
+import com.aspose.words.DocumentBuilder;
+import com.aspose.words.PdfSaveOptions;
 import com.aspose.words.examples.Utils;
 
 
-public class CreateBookmark
-{
+public class CreateBookmark {
     /**
      * The main entry point for the application.
      */
     public static void main(String[] args) throws Exception {
 
+        //ExStart:CreateBookmark
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(CreateBookmark.class);
         Document doc = new Document();
@@ -34,8 +33,9 @@ public class CreateBookmark
         options.getOutlineOptions().setDefaultBookmarksOutlineLevel(1);
         options.getOutlineOptions().setDefaultBookmarksOutlineLevel(2);
 
-        doc.save(dataDir + "output.pdf");
+        doc.save(dataDir + "output.pdf", options);
         System.out.println("\nBookmark created successfully.");
+        //ExEnd:CreateBookmark
     }
 
 }

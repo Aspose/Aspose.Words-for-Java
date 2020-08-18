@@ -1,4 +1,3 @@
-
 package com.aspose.words.examples.programming_documents.Theme;
 
 import com.aspose.words.Document;
@@ -9,6 +8,7 @@ import com.aspose.words.examples.Utils;
 public class GetThemeProperties {
     public static void main(String[] args) throws Exception {
 
+        //ExStart:GetThemeProperties
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(GetThemeProperties.class);
 
@@ -21,7 +21,8 @@ public class GetThemeProperties {
         System.out.println(theme.getMinorFonts().getEastAsian());
         // Color for theme color Accent 1.
         System.out.println(theme.getColors().getAccent1());
+        //ExEnd:GetThemeProperties
 
-        //System.out.println("Table auto fit to contents successfully.");
+        //System.out.println("Theme properties printed successfully.");
     }
 }

@@ -1,16 +1,12 @@
 package com.aspose.words.examples.loading_saving;
 
-import com.aspose.words.FileFormatInfo;
-import com.aspose.words.FileFormatUtil;
-import com.aspose.words.LoadFormat;
 import com.aspose.words.examples.Utils;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 
 public class GetListOfFilesInFolder {
     public static void main(String[] args) throws Exception {
+        //ExStart:GetListOfFilesInFolder
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(GetListOfFilesInFolder.class);
 
@@ -31,5 +27,6 @@ public class GetListOfFilesInFolder {
             System.out.print(nameOnly);
 
         }
+        //ExEnd:GetListOfFilesInFolder
     }
 }

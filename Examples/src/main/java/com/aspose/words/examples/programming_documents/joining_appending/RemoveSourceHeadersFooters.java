@@ -10,6 +10,7 @@ public class RemoveSourceHeadersFooters {
 
     public static void main(String[] args) throws Exception {
 
+        //ExStart:RemoveSourceHeadersFooters
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(RemoveSourceHeadersFooters.class);
 
@@ -28,6 +29,7 @@ public class RemoveSourceHeadersFooters {
 
         dstDoc.appendDocument(srcDoc, ImportFormatMode.KEEP_SOURCE_FORMATTING);
         dstDoc.save(dataDir + "output.doc");
+        //ExEnd:RemoveSourceHeadersFooters
 
     }
 }

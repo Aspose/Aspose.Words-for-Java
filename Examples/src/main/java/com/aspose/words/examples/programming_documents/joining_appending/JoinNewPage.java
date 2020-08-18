@@ -10,6 +10,7 @@ public class JoinNewPage {
 
     public static void main(String[] args) throws Exception {
 
+        //ExStart:JoinNewPage
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(JoinNewPage.class);
 
@@ -22,6 +23,7 @@ public class JoinNewPage {
         // Append the source document using the original styles found in the source document.
         dstDoc.appendDocument(srcDoc, ImportFormatMode.KEEP_SOURCE_FORMATTING);
         dstDoc.save(dataDir + "output.doc");
+        //ExEnd:JoinNewPage
 
     }
 }

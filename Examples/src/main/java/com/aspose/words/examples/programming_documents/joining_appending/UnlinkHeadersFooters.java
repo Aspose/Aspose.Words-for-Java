@@ -9,6 +9,7 @@ public class UnlinkHeadersFooters {
 
     public static void main(String[] args) throws Exception {
 
+        //ExStart:UnlinkHeadersFooters
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(UnlinkHeadersFooters.class);
 
@@ -22,6 +23,7 @@ public class UnlinkHeadersFooters {
 
         dstDoc.appendDocument(srcDoc, ImportFormatMode.KEEP_SOURCE_FORMATTING);
         dstDoc.save(dataDir + "output.doc");
+        //ExEnd:UnlinkHeadersFooters
 
     }
 }

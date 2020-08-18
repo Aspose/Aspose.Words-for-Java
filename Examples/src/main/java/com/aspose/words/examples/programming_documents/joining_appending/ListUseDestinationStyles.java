@@ -10,6 +10,7 @@ public class ListUseDestinationStyles {
 
     public static void main(String[] args) throws Exception {
 
+        //ExStart:ListUseDestinationStyles
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(ListUseDestinationStyles.class);
 
@@ -52,6 +53,7 @@ public class ListUseDestinationStyles {
 
         // Save the combined document to disk.
         dstDoc.save(dataDir + "output.docx");
+        //ExEnd:ListUseDestinationStyles
 
     }
 }

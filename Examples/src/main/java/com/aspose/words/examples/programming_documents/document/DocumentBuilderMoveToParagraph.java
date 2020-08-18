@@ -1,4 +1,3 @@
-
 package com.aspose.words.examples.programming_documents.document;
 
 import com.aspose.words.Document;
@@ -9,6 +8,7 @@ import com.aspose.words.examples.Utils;
 public class DocumentBuilderMoveToParagraph {
     public static void main(String[] args) throws Exception {
 
+        //ExStart:DocumentBuilderMoveToParagraph
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(DocumentBuilderMoveToParagraph.class);
 
@@ -20,6 +20,7 @@ public class DocumentBuilderMoveToParagraph {
         builder.writeln("This is the 3rd paragraph.");
 
         doc.save(dataDir + "output.doc");
+        //ExEnd:DocumentBuilderMoveToParagraph
 
     }
 }

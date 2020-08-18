@@ -9,6 +9,7 @@ import com.aspose.words.examples.Utils;
 public class DocumentBuilderInsertBreak {
     public static void main(String[] args) throws Exception {
 
+        //ExStart:DocumentBuilderInsertBreak
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(DocumentBuilderInsertBreak.class);
 
@@ -24,6 +25,7 @@ public class DocumentBuilderInsertBreak {
 
         builder.write("This is Page 3");
         doc.save(dataDir + "output.doc");
+        //ExEnd:DocumentBuilderInsertBreak
 
     }
 }

@@ -10,6 +10,7 @@ public class ConvertNumPageFields {
 
     public static void main(String[] args) throws Exception {
 
+        //ExStart:ConvertNumPageFields
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(ConvertNumPageFields.class);
 
@@ -31,8 +32,10 @@ public class ConvertNumPageFields {
         dstDoc.updatePageLayout();
 
         dstDoc.save(dataDir + "output.doc");
+        //ExEnd:ConvertNumPageFields
 
     }
+//ExStart:convertNumPageFieldsToPageRef
 
     /**
      * Replaces all NUMPAGES fields in the document with PAGEREF fields. The replacement field displays the total number
@@ -158,4 +161,5 @@ public class ConvertNumPageFields {
             currentNode = nextNode;
         }
     }
+    //ExEnd:convertNumPageFieldsToPageRef
 }

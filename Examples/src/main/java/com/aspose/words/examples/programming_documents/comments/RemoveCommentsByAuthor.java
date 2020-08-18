@@ -10,6 +10,7 @@ import com.aspose.words.examples.Utils;
 public class RemoveCommentsByAuthor {
     public static void main(String[] args) throws Exception {
 
+        //ExStart:RemoveCommentsByAuthor
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(RemoveCommentsByAuthor.class);
 
@@ -25,6 +26,7 @@ public class RemoveCommentsByAuthor {
                 comment.remove();
         }
         doc.save(dataDir + "output.doc");
+        //ExEnd:RemoveCommentsByAuthor
 
     }
 }

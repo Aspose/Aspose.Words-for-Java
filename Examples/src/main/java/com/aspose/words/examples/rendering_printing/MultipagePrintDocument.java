@@ -1,18 +1,15 @@
 package com.aspose.words.examples.rendering_printing;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import com.aspose.words.Document;
+
+import javax.print.attribute.AttributeSet;
+import javax.print.attribute.standard.PageRanges;
+import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 
-import javax.print.attribute.AttributeSet;
-import javax.print.attribute.standard.PageRanges;
-
-import com.aspose.words.Document;
-
+//ExStart:MultipagePrintDocument
 public class MultipagePrintDocument implements Printable {
 
 	private Document mDocument;
@@ -20,7 +17,8 @@ public class MultipagePrintDocument implements Printable {
 	private boolean mPrintPageBorders;
 	private AttributeSet mAttributeSet;
 
-	public MultipagePrintDocument(Document document, int pagesPerSheet, boolean printPageBorders, AttributeSet attributes) {
+	public MultipagePrintDocument(Document document, int pagesPerSheet, boolean printPageBorders,
+			AttributeSet attributes) {
 		if (document == null)
 			throw new IllegalArgumentException("document");
 
@@ -41,12 +39,14 @@ public class MultipagePrintDocument implements Printable {
 		// Calculate the page index which is to be rendered next.
 		int pagesOnCurrentSheet = (int) (page * (thumbCount.getWidth() * thumbCount.getHeight()));
 
-		// If the page index is more than the total page range then there is nothing more to render.
+		// If the page index is more than the total page range then there is nothing
+		// more to render.
 		if (pagesOnCurrentSheet > (toPage - fromPage))
 			return Printable.NO_SUCH_PAGE;
 
 		// Calculate the size of each thumbnail placeholder in points.
-		Point2D.Float thumbSize = new Point2D.Float((float) (pf.getImageableWidth() / thumbCount.getWidth()), (float) (pf.getImageableHeight() / thumbCount.getHeight()));
+		Point2D.Float thumbSize = new Point2D.Float((float) (pf.getImageableWidth() / thumbCount.getWidth()),
+				(float) (pf.getImageableHeight() / thumbCount.getHeight()));
 
 		// Calculate the number of the first page to be printed on this sheet of paper.
 		int startPage = pagesOnCurrentSheet + fromPage;
@@ -54,7 +54,8 @@ public class MultipagePrintDocument implements Printable {
 		// Select the number of the last page to be printed on this sheet of paper.
 		int pageTo = Math.max(startPage + mPagesPerSheet - 1, toPage);
 
-		// Loop through the selected pages from the stored current page to calculated last page.
+		// Loop through the selected pages from the stored current page to calculated
+		// last page.
 		for (int pageIndex = startPage; pageIndex <= pageTo; pageIndex++) {
 			// Calculate the column and row indices.
 			int rowIdx = (int) Math.floor((pageIndex - startPage) / thumbCount.getWidth());
@@ -70,11 +71,14 @@ public class MultipagePrintDocument implements Printable {
 				int leftPos = (int) (thumbLeft + pf.getImageableX());
 				int topPos = (int) (thumbTop + pf.getImageableY());
 
-				// Render the document page to the Graphics object using calculated coordinates and thumbnail placeholder size.
+				// Render the document page to the Graphics object using calculated coordinates
+				// and thumbnail placeholder size.
 				// The useful return value is the scale at which the page was rendered.
-				float scale = mDocument.renderToSize(pageIndex, (Graphics2D) g, leftPos, topPos, (int) thumbSize.x, (int) thumbSize.y);
+				float scale = mDocument.renderToSize(pageIndex, (Graphics2D) g, leftPos, topPos, (int) thumbSize.x,
+						(int) thumbSize.y);
 
-				// Draw the page borders (the page thumbnail could be smaller than the thumbnail placeholder size).
+				// Draw the page borders (the page thumbnail could be smaller than the thumbnail
+				// placeholder size).
 				if (mPrintPageBorders) {
 					// Get the real 100% size of the page in points.
 					Point2D.Float pageSize = mDocument.getPageInfo(pageIndex).getSizeInPoints();
@@ -86,13 +90,10 @@ public class MultipagePrintDocument implements Printable {
 					g.setColor(Color.red);
 					g.drawRect(leftPos, topPos, (int) thumbSize.x, (int) thumbSize.y);
 				}
-			}
-
-			catch (Exception e) {
+			} catch (Exception e) {
 				// If there are any errors that occur during rendering then do nothing.
 				// This will draw a blank page if there are any errors during rendering.
 			}
-
 		}
 
 		return Printable.PAGE_EXISTS;
@@ -100,7 +101,8 @@ public class MultipagePrintDocument implements Printable {
 
 	private Dimension getThumbCount(int pagesPerSheet, PageFormat pf) {
 		Dimension size;
-		// Define the number of the columns and rows on the sheet for the Landscape-oriented paper.
+		// Define the number of the columns and rows on the sheet for the
+		// Landscape-oriented paper.
 		switch (pagesPerSheet) {
 		case 16:
 			size = new Dimension(4, 4);
@@ -130,5 +132,5 @@ public class MultipagePrintDocument implements Printable {
 
 		return size;
 	}
-
+	// ExEnd:MultipagePrintDocument
 }

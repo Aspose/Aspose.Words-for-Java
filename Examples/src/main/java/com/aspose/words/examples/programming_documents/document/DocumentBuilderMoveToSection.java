@@ -1,4 +1,3 @@
-
 package com.aspose.words.examples.programming_documents.document;
 
 import com.aspose.words.Document;
@@ -9,6 +8,7 @@ import com.aspose.words.examples.Utils;
 public class DocumentBuilderMoveToSection {
     public static void main(String[] args) throws Exception {
 
+        //ExStart:DocumentBuilderMoveToSection
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(DocumentBuilderMoveToSection.class);
 
@@ -16,9 +16,10 @@ public class DocumentBuilderMoveToSection {
         Document doc = new Document(dataDir + "DocumentBuilder.doc");
         DocumentBuilder builder = new DocumentBuilder(doc);
 
-       builder.moveToSection(2);
+        builder.moveToSection(2);
         builder.write("\nThis is third Section\n");
         doc.save(dataDir + "output.doc");
+        //ExEnd:DocumentBuilderMoveToSection
 
     }
 }

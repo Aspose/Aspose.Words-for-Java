@@ -10,6 +10,7 @@ public class DifferentPageSetup {
 
     public static void main(String[] args) throws Exception {
 
+        //ExStart:DifferentPageSetup
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(DifferentPageSetup.class);
 
@@ -31,6 +32,7 @@ public class DifferentPageSetup {
 
         dstDoc.appendDocument(srcDoc, ImportFormatMode.KEEP_SOURCE_FORMATTING);
         dstDoc.save(dataDir + "output.doc");
+        //ExEnd:DifferentPageSetup
 
     }
 }

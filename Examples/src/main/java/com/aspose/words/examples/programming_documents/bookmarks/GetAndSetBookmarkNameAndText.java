@@ -5,13 +5,13 @@ import com.aspose.words.Document;
 import com.aspose.words.examples.Utils;
 
 
-public class GetAndSetBookmarkNameAndText
-{
+public class GetAndSetBookmarkNameAndText {
     /**
      * The main entry point for the application.
      */
     public static void main(String[] args) throws Exception {
 
+        //ExStart:GetAndSetBookmarkNameAndText
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(GetAndSetBookmarkNameAndText.class);
 
@@ -27,5 +27,6 @@ public class GetAndSetBookmarkNameAndText
         bookmark.setName("RenamedBookmark");
         bookmark.setText("This is a new bookmarked text.");
         System.out.println("\nBookmark name and text set successfully.");
+        //ExEnd:GetAndSetBookmarkNameAndText
     }
 }

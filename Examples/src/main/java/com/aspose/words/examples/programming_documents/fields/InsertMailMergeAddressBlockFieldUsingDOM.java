@@ -6,6 +6,7 @@ import com.aspose.words.examples.Utils;
 public class InsertMailMergeAddressBlockFieldUsingDOM {
     public static void main(String[] args) throws Exception {
 
+        //ExStart:InsertMailMergeAddressBlockFieldUsingDOM
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(InsertMailMergeAddressBlockFieldUsingDOM.class);
 
@@ -43,6 +44,7 @@ public class InsertMailMergeAddressBlockFieldUsingDOM {
         field.update();
 
         doc.save(dataDir + "output.docx");
+        //ExEnd:InsertMailMergeAddressBlockFieldUsingDOM
 
 
     }

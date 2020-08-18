@@ -9,6 +9,7 @@ public class UpdatePageLayout {
 
     public static void main(String[] args) throws Exception {
 
+        //ExStart:UpdatePageLayout
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(UpdatePageLayout.class);
 
@@ -28,6 +29,7 @@ public class UpdatePageLayout {
 
         // Save the joined document to PDF.
         dstDoc.save(dataDir + "output.pdf");
+        //ExEnd:UpdatePageLayout
 
     }
 }

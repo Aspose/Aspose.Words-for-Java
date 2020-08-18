@@ -6,6 +6,7 @@ import com.aspose.words.examples.Utils;
 public class InsertMergeFieldUsingDOM {
     public static void main(String[] args) throws Exception {
 
+        //ExStart:InsertMergeFieldUsingDOM
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(InsertMergeFieldUsingDOM.class);
 
@@ -43,6 +44,7 @@ public class InsertMergeFieldUsingDOM {
         field.update();
 
         doc.save(dataDir + "output.docx");
+        //ExEnd:InsertMergeFieldUsingDOM
 
 
     }

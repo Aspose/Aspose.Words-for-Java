@@ -6,6 +6,7 @@ import com.aspose.words.examples.Utils;
 public class UpdateDocFields {
     public static void main(String[] args) throws Exception {
 
+        //ExStart:UpdateDocFields
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(UpdateDocFields.class);
 
@@ -13,6 +14,7 @@ public class UpdateDocFields {
 
         doc.updateFields();
         doc.save(dataDir + "output.docx");
+        //ExEnd:UpdateDocFields
 
     }
 }

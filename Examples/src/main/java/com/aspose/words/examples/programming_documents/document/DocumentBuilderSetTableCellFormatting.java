@@ -1,13 +1,15 @@
-
 package com.aspose.words.examples.programming_documents.document;
 
-import com.aspose.words.*;
+import com.aspose.words.CellFormat;
+import com.aspose.words.Document;
+import com.aspose.words.DocumentBuilder;
 import com.aspose.words.examples.Utils;
 
 
 public class DocumentBuilderSetTableCellFormatting {
     public static void main(String[] args) throws Exception {
 
+        //ExStart:DocumentBuilderSetTableCellFormatting
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(DocumentBuilderSetTableCellFormatting.class);
 
@@ -16,7 +18,7 @@ public class DocumentBuilderSetTableCellFormatting {
         DocumentBuilder builder = new DocumentBuilder(doc);
 
         builder.insertCell();
-        CellFormat cellFormat =builder.getCellFormat();
+        CellFormat cellFormat = builder.getCellFormat();
         cellFormat.setWidth(250);
         cellFormat.setLeftPadding(30);
         cellFormat.setRightPadding(30);
@@ -27,6 +29,7 @@ public class DocumentBuilderSetTableCellFormatting {
         builder.endRow();
         builder.endTable();
         doc.save(dataDir + "output.doc");
+        //ExEnd:DocumentBuilderSetTableCellFormatting
 
     }
 }

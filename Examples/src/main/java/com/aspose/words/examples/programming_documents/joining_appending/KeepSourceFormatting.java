@@ -9,6 +9,7 @@ public class KeepSourceFormatting {
 
     public static void main(String[] args) throws Exception {
 
+        //ExStart:KeepSourceFormatting
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(KeepSourceFormatting.class);
 
@@ -20,6 +21,7 @@ public class KeepSourceFormatting {
 
         // Save the joined document to disk.
         dstDoc.save(dataDir + "output.docx");
+        //ExEnd:KeepSourceFormatting
 
     }
 }

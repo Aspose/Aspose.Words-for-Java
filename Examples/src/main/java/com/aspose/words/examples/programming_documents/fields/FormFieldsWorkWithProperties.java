@@ -6,6 +6,7 @@ import com.aspose.words.examples.Utils;
 public class FormFieldsWorkWithProperties {
     public static void main(String[] args) throws Exception {
 
+        //ExStart:FormFieldsWorkWithProperties
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(FormFieldsWorkWithProperties.class);
 
@@ -16,9 +17,10 @@ public class FormFieldsWorkWithProperties {
 
         FormField formField = doc.getRange().getFormFields().get(3);
         if (formField.getType() == FieldType.FIELD_FORM_TEXT_INPUT)
-
             formField.setResult("Field Name :" + formField.getName());
+
         doc.save(dataDir + "output.docx");
+        //ExEnd:FormFieldsWorkWithProperties
 
     }
 }

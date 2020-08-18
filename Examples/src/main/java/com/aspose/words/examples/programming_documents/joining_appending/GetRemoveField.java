@@ -1,4 +1,3 @@
-
 package com.aspose.words.examples.programming_documents.joining_appending;
 
 import com.aspose.words.*;
@@ -12,6 +11,7 @@ public class GetRemoveField {
 
     public static void main(String[] args) throws Exception {
 
+        //ExStart:GetRemoveField
         // The path to the documents directory.
         gDataDir = Utils.getDataDir(GetRemoveField.class);
 
@@ -33,10 +33,13 @@ public class GetRemoveField {
         dstDoc.updatePageLayout();
 
         dstDoc.save(gDataDir + "TestFile.ConvertNumPageFields Out.doc");
+        //ExEnd:GetRemoveField
 
 
         System.out.println("Documents appended successfully.");
     }
+
+    //ExStart:convertNumPageFieldsToPageRef
 
     /**
      * Replaces all NUMPAGES fields in the document with PAGEREF fields. The replacement field displays the total number
@@ -127,6 +130,7 @@ public class GetRemoveField {
             }
         }
     }
+    //ExEnd:convertNumPageFieldsToPageRef
 
     /**
      * Retrieves the field code from a field.
@@ -134,6 +138,8 @@ public class GetRemoveField {
      * @param fieldStart The field start of the field which to gather the field code from.
      */
 
+
+    //ExStart:removeField
 
     /**
      * Removes the Field from the document.
@@ -154,7 +160,9 @@ public class GetRemoveField {
             currentNode = nextNode;
         }
     }
+    //ExEnd:removeField
 
+    //ExStart:getFieldCode
     private static String getFieldCode(FieldStart fieldStart) throws Exception {
         StringBuilder builder = new StringBuilder();
 
@@ -166,6 +174,7 @@ public class GetRemoveField {
         }
         return builder.toString();
     }
+    //ExEnd:getFieldCode
 
 
 }

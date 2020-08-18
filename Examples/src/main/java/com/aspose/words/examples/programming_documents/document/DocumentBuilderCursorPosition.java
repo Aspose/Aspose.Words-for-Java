@@ -10,6 +10,7 @@ import com.aspose.words.examples.Utils;
 public class DocumentBuilderCursorPosition {
     public static void main(String[] args) throws Exception {
 
+        //ExStart:DocumentBuilderCursorPosition
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(DocumentBuilderCursorPosition.class);
 
@@ -19,6 +20,7 @@ public class DocumentBuilderCursorPosition {
         Node node = builder.getCurrentNode();
         Paragraph curParagraph = builder.getCurrentParagraph();
         doc.save(dataDir + "output.doc");
+        //ExEnd:DocumentBuilderCursorPosition
 
     }
 }

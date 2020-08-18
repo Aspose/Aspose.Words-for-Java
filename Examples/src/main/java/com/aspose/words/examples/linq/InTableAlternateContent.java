@@ -8,8 +8,8 @@ public class InTableAlternateContent {
     /**
      * The main entry point for the application.
      */
-    public static void main(String[] args) throws Exception
-    {
+    public static void main(String[] args) throws Exception {
+        //ExStart:InTableAlternateContent
         // The path to the documents directory.
 
         String dataDir = Utils.getDataDir(InTableAlternateContent.class);
@@ -28,6 +28,7 @@ public class InTableAlternateContent {
 
         // Save the finished document to disk.
         doc.save(dataDir);
+        //ExStart:InTableAlternateContent
 //   System.out.println("\nIn-Table list template document is populated with the data about managers.\nFile saved at " + dataDir);
 
     }

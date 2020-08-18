@@ -10,6 +10,7 @@ import java.awt.*;
 public class DocumentBuilderInsertHyperlink {
     public static void main(String[] args) throws Exception {
 
+        //ExStart:DocumentBuilderInsertHyperlink
         // The path to the documents directory.
         String dataDir = Utils.getDataDir(DocumentBuilderInsertHyperlink.class);
 
@@ -30,6 +31,7 @@ public class DocumentBuilderInsertHyperlink {
         builder.getFont().clearFormatting();
         builder.write(" for more information.");
         doc.save(dataDir + "output.doc");
+        //ExEnd:DocumentBuilderInsertHyperlink
 
     }
 }
